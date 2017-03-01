@@ -20,18 +20,23 @@
 
 
 /*********************************************************/
-class xCore{
+class xCoreClass{
 	private:
 		int a,b,c,d;
 	public:
-		xCore();
+		xCoreClass(){}
+		uint16_t	request16(byte device);
 		void 		write8(byte device, byte reg, byte value);
+		void 		write(byte device, byte value);
 		void 		write16(byte device, byte reg, uint16_t value);
 		uint8_t 	read8(byte device, byte reg);
 		uint16_t	read16(byte device, byte reg);
 		int16_t 	readS16(byte device,byte reg);
+		uint16_t  	read16_LE(byte device, byte reg); 
+		int16_t   	readS16_LE(byte device, byte reg); 
 		uint32_t 	read24(byte device, byte reg);
 };
 
+extern xCoreClass xCore;
 // end of header
 #endif
