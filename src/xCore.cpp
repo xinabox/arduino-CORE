@@ -14,19 +14,9 @@
 #include "xCore.h"
 
 /********************************************************
- 	Constructor
-*********************************************************/
-xCore::xCore(){
-	#if defined(ARDUINO_ESP8266_ESP01)
-	Wire.begin(2,14);
-	#else
-	Wire.begin();
-	#endif
-}
-/********************************************************
  	Writes an 8 bit value over I2C
 *********************************************************/
-void xCore::write8(byte device, byte reg, byte value) {
+void xCoreClass::write8(byte device, byte reg, byte value) {
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
 	Wire.write((uint8_t)value);
@@ -34,9 +24,17 @@ void xCore::write8(byte device, byte reg, byte value) {
 }
 
 /********************************************************
+ 	Writes over I2C
+*********************************************************/
+void xCoreClass::write(byte device, byte value){
+	Wire.beginTransmission((uint8_t)device);
+	Wire.write((uint8_t)value);
+}
+
+/********************************************************
  	Writes an 16 bit value over I2C
 *********************************************************/
-void xCore::write16(byte device, byte reg, uint16_t value) {
+void xCoreClass::write16(byte device, byte reg, uint16_t value) {
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
 	Wire.write((0xFF & (value >> 0)));
@@ -47,7 +45,7 @@ void xCore::write16(byte device, byte reg, uint16_t value) {
 /********************************************************
  	Reads an 8 bit value over I2C
 *********************************************************/
-uint8_t xCore::read8(byte device, byte reg) {
+uint8_t xCoreClass::read8(byte device, byte reg) {
 	uint8_t value;
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
@@ -60,39 +58,55 @@ uint8_t xCore::read8(byte device, byte reg) {
 /********************************************************
  	Reads an 16 bit value over I2C
 *********************************************************/
-uint16_t xCore::read16(byte device, byte reg) {
+uint16_t xCoreClass::read16(byte device, byte reg) {
 	uint16_t value;
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
 	Wire.endTransmission(false);
 	Wire.requestFrom((uint8_t)device, (uint8_t)2);
-	value = (Wire.read() << 8) | Wire.read();
+	value = Wire.read(); 
+	value <<= 8;
+	value |= Wire.read();
 	return value;
 }
 
-/********************************************************
- 	Reads a signed 16 bit value over I2C
-*********************************************************/
-int16_t xCore::readS16(byte device, byte reg) {
-	return (int16_t)read16((uint8_t)device, (uint8_t)reg);
+int16_t xCoreClass::readS16(byte device, byte reg) {
+	return (int16_t)read16(device, reg);
 }
+
+int16_t xCoreClass::readS16_LE(byte device, byte reg){
+    return (int16_t)read16_LE(device, reg);
+}
+
+uint16_t xCoreClass::read16_LE(byte device, byte reg) {
+    uint16_t temp = read16(device, reg);
+    return (temp >> 8) | (temp << 8);
+}
+
+uint16_t xCoreClass::request16(byte device){
+	uint16_t value;
+	Wire.requestFrom((uint8_t)device,(uint8_t)2);
+	value = Wire.read();
+	value <<= 8;
+	value |= Wire.read();
+	return value;
+} 
 
 /********************************************************
  	Reads a signed 24 bit value over I2C
 *********************************************************/
-uint32_t xCore::read24(byte device, byte reg) {
+uint32_t xCoreClass::read24(byte device, byte reg) {
 	uint32_t value;
-
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
 	Wire.endTransmission(false);
 	Wire.requestFrom((uint8_t)device, (uint8_t)3);
-
 	value = Wire.read();
 	value <<= 8;
 	value |= Wire.read();
 	value <<= 8;
 	value |= Wire.read();
-
 	return value;
 }
+
+xCoreClass xCore = xCoreClass();
