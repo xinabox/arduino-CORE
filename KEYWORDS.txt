@@ -1,27 +1,27 @@
 #######################################
-# Syntax Coloring Map For Core
+# Syntax Coloring Map For xCore
 #######################################
 
 #######################################
-# Datatypes 				(KEYWORD1)
+# Instances 				(KEYWORD1)
 #######################################
 
-Stepper	KEYWORD1			 Stepper
+xCore	        KEYWORD1		
 
 #######################################
 # Methods and Functions 	(KEYWORD2)
 #######################################
 
-step						 KEYWORD2
-setSpeed					 KEYWORD2
-version						 KEYWORD2
-
-######################################
-# Instances 				(KEYWORD2)
-#######################################
-
-direction					 KEYWORD2
-speed						 KEYWORD2
+request16		KEYWORD2
+write           KEYWORD2   
+write1          KEYWORD2
+write8          KEYWORD2
+write16         KEYWORD2
+read8           KEYWORD2
+readS16         KEYWORD2
+read16_LE       KEYWORD2
+readS16_LE      KEYWORD2
+read24          KEYWORD2
 
 #######################################
 # Constants 				(LITERAL1)
