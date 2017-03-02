@@ -31,6 +31,10 @@ void xCoreClass::write(byte device, byte value){
 	Wire.write((uint8_t)value);
 }
 
+void xCoreClass::write1(byte value){
+	Wire.write((uint8_t)value);
+}
+
 /********************************************************
  	Writes an 16 bit value over I2C
 *********************************************************/
