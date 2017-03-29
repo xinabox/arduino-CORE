@@ -47,6 +47,16 @@ void xCoreClass::write16(byte device, byte reg, uint16_t value) {
 }
 
 /********************************************************
+ 	Reads an Stream over I2C
+*********************************************************/
+uint8_t xCoreClass::readStream(byte device, byte value){
+	uint8_t value;
+	value = 0;
+	Wire.requestFrom((uint8_t)device, (uint8_t)value);
+	value = Wire.read();
+	return value;
+}
+/********************************************************
  	Reads an 8 bit value over I2C
 *********************************************************/
 uint8_t xCoreClass::read8(byte device, byte reg) {

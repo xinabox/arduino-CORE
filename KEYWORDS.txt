@@ -18,6 +18,7 @@ write1          KEYWORD2
 write8          KEYWORD2
 write16         KEYWORD2
 read8           KEYWORD2
+readStream		KEYWORD2
 readS16         KEYWORD2
 read16_LE       KEYWORD2
 readS16_LE      KEYWORD2
