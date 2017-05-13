@@ -26,13 +26,14 @@ void xCoreClass::write8(byte device, byte reg, byte value) {
 /********************************************************
  	Writes over I2C
 *********************************************************/
-void xCoreClass::write(byte device, byte value){
-	Wire.beginTransmission((uint8_t)device);
+void xCoreClass::write(byte value){
 	Wire.write((uint8_t)value);
 }
 
-void xCoreClass::write1(byte value){
+void xCoreClass::write1(byte device, byte value){
+	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)value);
+	Wire.endTransmission(false);
 }
 
 /********************************************************
@@ -49,13 +50,14 @@ void xCoreClass::write16(byte device, byte reg, uint16_t value) {
 /********************************************************
  	Reads an Stream over I2C
 *********************************************************/
-uint8_t xCoreClass::readStream(byte device, byte value){
+uint8_t xCoreClass::readStream(byte device){
 	uint8_t value;
 	value = 0;
-	Wire.requestFrom((uint8_t)device, (uint8_t)value);
+	Wire.requestFrom((uint8_t)device, (uint8_t)1);
 	value = Wire.read();
 	return value;
 }
+
 /********************************************************
  	Reads an 8 bit value over I2C
 *********************************************************/

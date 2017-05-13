@@ -26,11 +26,11 @@ class xCoreClass{
 	public:
 		xCoreClass(){}
 		uint16_t	request16(byte device);
-		void 		write(byte device, byte value);
-		void 		write1(byte value);
+		void 		write(byte value);
+		void 		write1(byte device, byte value);
 		void 		write8(byte device, byte reg, byte value);
 		void 		write16(byte device, byte reg, uint16_t value);
-		uint8_t		readStream(byte device, byte value);
+		uint8_t		readStream(byte device);
 		uint8_t 	read8(byte device, byte reg);
 		uint16_t	read16(byte device, byte reg);
 		int16_t 	readS16(byte device,byte reg);
