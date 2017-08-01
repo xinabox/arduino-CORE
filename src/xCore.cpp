@@ -20,7 +20,7 @@ void xCoreClass::write8(byte device, byte reg, byte value) {
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
 	Wire.write((uint8_t)value);
-	Wire.endTransmission(false);
+	Wire.endTransmission();
 }
 
 /********************************************************
@@ -33,7 +33,7 @@ void xCoreClass::write(byte value){
 void xCoreClass::write1(byte device, byte value){
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)value);
-	Wire.endTransmission(false);
+	Wire.endTransmission();
 }
 
 /********************************************************
@@ -44,17 +44,18 @@ void xCoreClass::write16(byte device, byte reg, uint16_t value) {
 	Wire.write((uint8_t)reg);
 	Wire.write((0xFF & (value >> 0)));
 	Wire.write((0xFF & (value << 8)));
-	Wire.endTransmission(false);
+	Wire.endTransmission();
 }
 
 /********************************************************
  	Reads an Stream over I2C
 *********************************************************/
 uint8_t xCoreClass::readStream(byte device){
-	uint8_t value;
-	value = 0;
+	uint8_t value = 0;
 	Wire.requestFrom((uint8_t)device, (uint8_t)1);
-	value = Wire.read();
+	if(Wire.available()){
+		value = Wire.read();
+	}
 	return value;
 }
 
@@ -62,12 +63,14 @@ uint8_t xCoreClass::readStream(byte device){
  	Reads an 8 bit value over I2C
 *********************************************************/
 uint8_t xCoreClass::read8(byte device, byte reg) {
-	uint8_t value;
+	uint8_t value = 0;
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
-	Wire.endTransmission(false);
+	Wire.endTransmission();
 	Wire.requestFrom((uint8_t)device, (uint8_t)1);
-	value = Wire.read();
+	if(Wire.available()){
+		value = Wire.read();
+	}
 	return value;
 }
 
@@ -75,14 +78,16 @@ uint8_t xCoreClass::read8(byte device, byte reg) {
  	Reads an 16 bit value over I2C
 *********************************************************/
 uint16_t xCoreClass::read16(byte device, byte reg) {
-	uint16_t value;
+	uint16_t value = 0;
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
 	Wire.endTransmission(false);
 	Wire.requestFrom((uint8_t)device, (uint8_t)2);
-	value = Wire.read(); 
-	value <<= 8;
-	value |= Wire.read();
+	if(Wire.available()){
+		value = Wire.read(); 
+		value <<= 8;
+		value |= Wire.read();
+	}
 	return value;
 }
 
@@ -100,11 +105,13 @@ uint16_t xCoreClass::read16_LE(byte device, byte reg) {
 }
 
 uint16_t xCoreClass::request16(byte device){
-	uint16_t value;
+	uint16_t value = 0;
 	Wire.requestFrom((uint8_t)device,(uint8_t)2);
-	value = Wire.read();
-	value <<= 8;
-	value |= Wire.read();
+	if(Wire.available()){
+		value = Wire.read();
+		value <<= 8;
+		value |= Wire.read();
+	}
 	return value;
 } 
 
@@ -112,16 +119,18 @@ uint16_t xCoreClass::request16(byte device){
  	Reads a signed 24 bit value over I2C
 *********************************************************/
 uint32_t xCoreClass::read24(byte device, byte reg) {
-	uint32_t value;
+	uint32_t value = 0;
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
 	Wire.endTransmission(false);
 	Wire.requestFrom((uint8_t)device, (uint8_t)3);
-	value = Wire.read();
-	value <<= 8;
-	value |= Wire.read();
-	value <<= 8;
-	value |= Wire.read();
+	if(Wire.available()){	
+		value = Wire.read();
+		value <<= 8;
+		value |= Wire.read();
+		value <<= 8;
+		value |= Wire.read();
+	}
 	return value;
 }
 
