@@ -17,22 +17,22 @@
 #define BAUD 115200
 
 /********************************************************
- *				 RGB LED Pin Map 			    		*
+ * RGB LED Pin Map 			    		*
  ********************************************************/
-#if CPU == xCC01
-	#define RED 5
-	#define GREEN 6
-	#define BLUE 7
+#define CR0X_RED 14
+#define CR0X_GREEN 15
+#define CR0X_BLUE 16
 
-#elif CPU == xCW01 
-	#define RED 12
-	#define GREEN 13
-	#define BLUE 5
-	
-#elif CPU == xCR01 
-	#define RED 14
-	#define GREEN 15
-	#define BLUE 16
-#endif
+#define CW01_RED 12
+#define CW01_GREEN 13
+#define CW01_BLUE 5
+
+#define CC01_RED 5
+#define CC01_GREEN 6
+#define CC01_BLUE 7
+
+#define CW02_RED 25
+#define CW02_GREEN 26
+#define CW02_BLUE 27
 
 #endif
