@@ -23,6 +23,7 @@ readS16         KEYWORD2
 read16_LE       KEYWORD2
 readS16_LE      KEYWORD2
 read24          KEYWORD2
+ping            KEYWORD2
 
 #######################################
 # Constants 				(LITERAL1)
