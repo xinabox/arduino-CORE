@@ -37,6 +37,7 @@ class xCoreClass{
 		uint16_t  	read16_LE(byte device, byte reg); 
 		int16_t   	readS16_LE(byte device, byte reg); 
 		uint32_t 	read24(byte device, byte reg);
+		bool		ping(byte device);
 };
 
 extern xCoreClass xCore;
