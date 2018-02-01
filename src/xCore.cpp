@@ -134,4 +134,26 @@ uint32_t xCoreClass::read24(byte device, byte reg) {
 	return value;
 }
 
+/********************************************************
+ 	Ping and I2C device address
+*********************************************************/
+bool xCoreClass::ping(byte device) {
+  // Set flag status
+  bool status = false;
+  // Check the flag status to check if OD01 is connected and ping was succesful
+  for (byte i = 0; i < 10; i++) {
+    Wire.beginTransmission((uint8_t)device);
+    if (Wire.endTransmission() == 0) { // Device is connected and ping successful
+      status = true; // set flag
+      break; // exit loop
+    }
+    else if (i == 9) { // Device not found cannot ping device address
+      status = false; // set flag
+      break; // exit loop
+    }
+    delay(1);
+  }
+  return status;
+}
+
 xCoreClass xCore = xCoreClass();
