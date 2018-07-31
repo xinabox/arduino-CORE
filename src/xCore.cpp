@@ -5,10 +5,6 @@
  	-	I2C Communication												
  	-	Inter device communication
 
-	Currently Spport Models:
-	-	CW01
-	-	CC01
-	-	CR01	
 *********************************************************/
  
 #include "xCore.h"
@@ -81,7 +77,7 @@ uint16_t xCoreClass::read16(byte device, byte reg) {
 	uint16_t value = 0;
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
-	Wire.endTransmission(false);
+	Wire.endTransmission();
 	Wire.requestFrom((uint8_t)device, (uint8_t)2);
 	if(Wire.available()){
 		value = Wire.read(); 
@@ -122,7 +118,7 @@ uint32_t xCoreClass::read24(byte device, byte reg) {
 	uint32_t value = 0;
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
-	Wire.endTransmission(false);
+	Wire.endTransmission();
 	Wire.requestFrom((uint8_t)device, (uint8_t)3);
 	if(Wire.available()){	
 		value = Wire.read();
