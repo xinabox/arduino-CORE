@@ -15,7 +15,6 @@
 #include "inttypes.h"
 #include <Arduino.h>
 #include "xVersion.h"
-#include "xConfig.h"
 #include "Wire.h"
 
 
