@@ -38,8 +38,10 @@ void xCoreClass::write1(byte device, byte value){
 void xCoreClass::write16(byte device, byte reg, uint16_t value) {
 	Wire.beginTransmission((uint8_t)device);
 	Wire.write((uint8_t)reg);
-	Wire.write((0xFF & (value >> 0)));
-	Wire.write((0xFF & (value << 8)));
+	//Wire.write(0xFF & (value >> 0));
+	//Wire.write(0xFF & (value << 8));
+	Wire.write(value >> 0);
+	Wire.write(value << 8);	
 	Wire.endTransmission();
 }
 
@@ -64,7 +66,8 @@ uint8_t xCoreClass::read8(byte device, byte reg) {
 	Wire.write((uint8_t)reg);
 	Wire.endTransmission();
 	Wire.requestFrom((uint8_t)device, (uint8_t)1);
-	if(Wire.available()){
+	if(Wire.available())
+	{
 		value = Wire.read();
 	}
 	return value;
