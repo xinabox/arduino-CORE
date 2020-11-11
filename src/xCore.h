@@ -17,19 +17,25 @@
 #include "xVersion.h"
 #include "Wire.h"
 
-#if not defined(CORE_RED) || defined(CORE_GREEN) ||defined(CORE_BLUE)
-#ifdef ESP8266
-#define CORE_RED 12
-#define CORE_GREEN 13
-#define CORE_BLUE 5
-#elif ESP32
-#define CORE_RED 25
-#define CORE_GREEN 26
-#define CORE_BLUE 27
-#elif ARDUINO_SAMD_ZERO
-#define CORE_RED 11
-#define CORE_GREEN 12
-#define CORE_BLUE 13
+#if not defined(LED_RED) || not defined(LED_GREEN) || not defined(LED_BUILTIN)
+#ifdef ESP8266				 // CW01
+#define LED_RED 12
+#define LED_GREEN 13
+#if not defined(LED_BUILTIN) // LED_BLUE
+#define LED_BUILTIN 5
+#endif
+#elif ESP32					  // CW02
+#define LED_RED 25
+#define LED_GREEN 26
+#if not defined(LED_BUILTIN)
+#define LED_BUILTIN 27
+#endif
+#elif ARDUINO_SAMD_ZERO		  // CS11
+#define LED_RED 11
+#define LED_GREEN 12
+#if not defined(LED_BUILTIN)
+#define LED_BUILTIN 13
+#endif
 #endif
 #endif
 
